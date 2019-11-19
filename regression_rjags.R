@@ -71,7 +71,6 @@ model.samples <- coda.samples(model.model, variable.names = model.vars,
                                n.iter = 50000)
 
 ########## MCMC diagnostics ############
-# MCMC diagnostics
 gelman.diag(model.samples)
 mce.ratio <- min(summary(model.samples)$statistics[,2] / 
                     summary(model.samples)$statistics[,4] )
@@ -91,7 +90,6 @@ for (i in 1:ncol(params)){
 }
 
 ####### residual analysis #######
-
 # calcuation of fitted values
 n <- nrow(data)
 
@@ -118,7 +116,6 @@ H <- design %*% solve((t(design) %*% design)) %*% t(design)
 
 
 ##### calcuation of studentized residuals
-# studentised residual distributions matrix: 15,000 (5k * 3 chains) by 480 
 studentisedresid <- matrix(0, nrow=n, ncol=n.samples) # initialize
 for(sample in 1:n.samples){ # for each sample
   for(observation in 1:n){ # for each original observation
@@ -140,7 +137,7 @@ for(i in 1:n){
   fittedvaluesm[i]=mean(fittedvalues[i,])
 }
 
-# put fitted, resids, council, an year in data frame
+# put fitted and resids in data frame
 resid.stud.groups <- data.frame(fitted = fittedvaluesm,
                                 resid = studentisedresidm)
 
